@@ -1,37 +1,14 @@
-import Link from "next/link";
+// app/page.tsx
+import dayjs from "dayjs";
+import Home from "@/app/components/Home";
+import { getQiitaItems } from "@/app/tools/getQiitaItems";
 
-export default function Home() {
-  return (
-    <div>
-      <ul>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-        <li className="mb-4">
-          <Link href="/" className="h-24 w-full flex items-center bg-white rounded-2xl">記事タイトル</Link>
-        </li>
-      </ul>
-    </div>
-  );
-}
+const Page = async () => {
+  const page = 1;
+  const qiitaItems = await getQiitaItems(page);
+  const generatedAt = dayjs().format("YYYY-MM-DD HH:mm:ss");
+
+  return <Home qiitaItems={qiitaItems} generatedAt={generatedAt} initialPage={page} />;
+};
+
+export default Page;

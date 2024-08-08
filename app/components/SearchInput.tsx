@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import APIPopup from "@/app/components/ApiPopup";
+import APIPopup from "@/app/components/APIPopup";
 
 export default function SearchInput() {
   const [isPopupVisible, setPopupVisible] = useState(false);
