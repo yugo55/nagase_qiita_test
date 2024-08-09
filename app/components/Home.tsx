@@ -17,6 +17,7 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
   const [page, setPage] = useState(initialPage);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [apiKey, setApiKey] = useState("");
 
   useEffect(() => {
     const fetchQiitaItems = async () => {
@@ -33,7 +34,7 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
 
   return (
     <div>
-      <SearchInput setSearchText={setSearchText} />
+      <SearchInput setSearchText={setSearchText} setApiKey={setApiKey} />
       <h1>更新日時: {generatedAt}</h1>
       <div>
         {items.map(({ id, title }) => (

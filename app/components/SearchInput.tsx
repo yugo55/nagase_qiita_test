@@ -5,9 +5,10 @@ import APIPopup from "@/app/components/APIPopup";
 
 type SearchInputProps = {
   setSearchText: (text: string) => void;
+  setApiKey: (key: string) => void;
 };
 
-export default function SearchInput({ setSearchText }: SearchInputProps) {
+export default function SearchInput({ setSearchText, setApiKey }: SearchInputProps) {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [searchText, setInputSearchText] = useState("");
 
@@ -45,7 +46,7 @@ export default function SearchInput({ setSearchText }: SearchInputProps) {
         APIキー入力
       </button>
       {isPopupVisible && (
-        <APIPopup togglePopup={togglePopup} setApiKey={() => {}} />
+        <APIPopup togglePopup={togglePopup} setApiKey={setApiKey} />
       )}
     </div>
   );
