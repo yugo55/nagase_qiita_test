@@ -44,14 +44,14 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
           </div>
         ))}
       </div>
-      <div>
+      <div className="flex justify-between mb-6">
         <button onClick={handlePreviousPage} disabled={page === 1 || loading}>
           前のページ
         </button>
+        <span>{page}</span>
         <button onClick={handleNextPage} disabled={loading}>
           次のページ
         </button>
-        {loading && <p>Loading...</p>}
       </div>
     </div>
   );
