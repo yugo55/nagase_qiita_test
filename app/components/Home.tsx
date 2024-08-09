@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import { ParsedQiitaItem } from "@/app/types";
 import { getQiitaItems } from "@/app/tools/getQiitaItems";
-import Link from 'next/link';
-import SearchInput from './SearchInput';
+import Link from "next/link";
+import SearchInput from "./SearchInput";
 
 type HomeProps = {
   generatedAt: string;
@@ -37,10 +37,28 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
       <SearchInput setSearchText={setSearchText} setApiKey={setApiKey} />
       <h1>更新日時: {generatedAt}</h1>
       <div>
-        {items.map(({ id, title }) => (
-          <div key={id} className="h-14 bg-white rounded-2xl p-6 box-content mb-5">
-            <Link href={`../${id}`} passHref rel="noreferrer" className="flex items-center h-full ">
+        {items.map(({ id, title, tags }) => (
+          <div
+            key={id}
+            className="bg-white rounded-2xl box-content mb-5"
+          >
+            <Link
+              href={`../${id}`}
+              passHref
+              rel="noreferrer"
+              className="flex flex-col h-full p-6"
+            >
               <h2>{title}</h2>
+              <ul className="flex flex-wrap gap-2 mt-2">
+                {tags.map((tag) => (
+                  <li
+                    key={tag.name}
+                    className="text-xs bg-gray-200 rounded-full px-2 py-1"
+                  >
+                    {tag.name}
+                  </li>
+                ))}
+              </ul>
             </Link>
           </div>
         ))}
