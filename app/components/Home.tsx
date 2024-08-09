@@ -1,10 +1,10 @@
-// app/components/Home.tsx
 'use client';
 
 import { useState, useEffect } from "react";
 import { ParsedQiitaItem } from "@/app/types";
 import { getQiitaItems } from "@/app/tools/getQiitaItems";
 import Link from 'next/link';
+import SearchInput from './SearchInput';
 
 type HomeProps = {
   generatedAt: string;
@@ -16,22 +16,24 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
   const [items, setItems] = useState<ParsedQiitaItem[]>(qiitaItems);
   const [page, setPage] = useState(initialPage);
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     const fetchQiitaItems = async () => {
       setLoading(true);
-      const newItems = await getQiitaItems(page);
+      const newItems = await getQiitaItems(page, searchText);
       setItems(newItems);
       setLoading(false);
     };
     fetchQiitaItems();
-  }, [page]);
+  }, [page, searchText]);
 
   const handleNextPage = () => setPage(page + 1);
   const handlePreviousPage = () => setPage(page > 1 ? page - 1 : 1);
 
   return (
     <div>
+      <SearchInput setSearchText={setSearchText} />
       <h1>更新日時: {generatedAt}</h1>
       <div>
         {items.map(({ id, title }) => (

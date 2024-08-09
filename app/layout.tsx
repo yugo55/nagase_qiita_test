@@ -21,7 +21,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <div className="max-w-5xl mx-auto">
-          <SearchInput />
           {children}
         </div>
       </body>
