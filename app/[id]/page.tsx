@@ -5,10 +5,12 @@ import { ParsedQiitaItem, QiitaItemResponse } from "@/app/types";
 import hljs from 'highlight.js';
 import { JSDOM } from 'jsdom';
 import 'highlight.js/styles/github.css';
+import Link from 'next/link';
 
 type Props = {
   params: {
     id: string;
+    searchText?: string;
   };
 };
 
@@ -45,6 +47,11 @@ const QiitaItemPage = async ({ params }: Props) => {
 
   return (
     <div>
+      <div className="my-6">
+        <Link href={"/"}>
+          <button className="h-8 w-24 rounded-full bg-green-400">戻る</button>
+        </Link>
+      </div>
       <h1 className='font-semibold text-2xl mb-6'>{qiitaItem.title}</h1>
       <div
         className='break-all mb-6'
