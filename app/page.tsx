@@ -1,4 +1,3 @@
-// app/page.tsx
 import dayjs from "dayjs";
 import Home from "@/app/components/Home";
 import { getQiitaItems } from "@/app/tools/getQiitaItems";

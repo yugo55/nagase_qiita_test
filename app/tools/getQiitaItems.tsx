@@ -1,5 +1,3 @@
-// app/tools/getQiitaItems.tsx
-
 import axios from "axios";
 import { ParsedQiitaItem } from "@/app/types";
 

@@ -1,4 +1,3 @@
-// app/[id]/page.tsx
 import { notFound } from 'next/navigation';
 import axios from 'axios';
 import { ParsedQiitaItem, QiitaItemResponse } from "@/app/types";
