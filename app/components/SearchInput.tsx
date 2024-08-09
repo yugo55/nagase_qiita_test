@@ -10,7 +10,6 @@ type SearchInputProps = {
 export default function SearchInput({ setSearchText }: SearchInputProps) {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [searchText, setInputSearchText] = useState("");
-  const [page, setPage] = useState(1);
 
   const togglePopup = () => {
     setPopupVisible(!isPopupVisible);
