@@ -37,6 +37,9 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
     <div>
       <SearchInput setSearchText={setSearchText} setApiKey={setApiKey} />
       <h1>更新日時: {generatedAt}</h1>
+      {searchText &&
+        <p className="text-2xl my-5">{searchText}の検索結果</p>
+      }
       <div>
         {items.map(({ id, title, tags, created_at }) => (
           <div
