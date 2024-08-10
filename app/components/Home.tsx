@@ -12,6 +12,15 @@ type HomeProps = {
   initialPage: number;
 };
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return `${year}年${month}月${day}日`;
+}
+
 const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
   const [items, setItems] = useState<ParsedQiitaItem[]>(qiitaItems);
   const [page, setPage] = useState(initialPage);
@@ -37,7 +46,7 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
       <SearchInput setSearchText={setSearchText} setApiKey={setApiKey} />
       <h1>更新日時: {generatedAt}</h1>
       <div>
-        {items.map(({ id, title, tags }) => (
+        {items.map(({ id, title, tags, created_at }) => (
           <div
             key={id}
             className="bg-white rounded-2xl box-content mb-5"
@@ -48,7 +57,8 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
               rel="noreferrer"
               className="flex flex-col h-full p-6"
             >
-              <h2>{title}</h2>
+              <h2 className="text-lg font-semibold">{title}</h2>
+              <p className="text-xs text-gray-500">{formatDate(created_at)}</p>
               <ul className="flex flex-wrap gap-2 mt-2">
                 {tags.map((tag) => (
                   <li
