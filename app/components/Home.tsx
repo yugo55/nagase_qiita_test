@@ -5,21 +5,13 @@ import { ParsedQiitaItem } from "@/app/types";
 import { getQiitaItems } from "@/app/tools/getQiitaItems";
 import Link from "next/link";
 import SearchInput from "./SearchInput";
+import { formatDate } from "@/app/tools/formatDate";
 
 type HomeProps = {
   generatedAt: string;
   qiitaItems: ParsedQiitaItem[];
   initialPage: number;
 };
-
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-
-  return `${year}年${month}月${day}日`;
-}
 
 const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
   const [items, setItems] = useState<ParsedQiitaItem[]>(qiitaItems);

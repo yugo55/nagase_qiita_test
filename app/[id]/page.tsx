@@ -1,10 +1,11 @@
-import { notFound } from 'next/navigation';
-import axios from 'axios';
+import { notFound } from "next/navigation";
+import axios from "axios";
 import { ParsedQiitaItem, QiitaItemResponse } from "@/app/types";
-import hljs from 'highlight.js';
-import { JSDOM } from 'jsdom';
-import 'highlight.js/styles/github.css';
-import Link from 'next/link';
+import hljs from "highlight.js";
+import { JSDOM } from "jsdom";
+import "highlight.js/styles/github.css";
+import Link from "next/link";
+import { formatDate } from "@/app/tools/formatDate";
 
 type Props = {
   params: {
@@ -20,7 +21,7 @@ const getQiitaItem = async (id: string): Promise<ParsedQiitaItem | null> => {
 
     const jsdom = new JSDOM(res.data.rendered_body);
     const { document } = jsdom.window;
-    const codeBlocks = document.querySelectorAll('pre code');
+    const codeBlocks = document.querySelectorAll("pre code");
 
     codeBlocks.forEach((block) => {
       hljs.highlightBlock(block as HTMLElement);
@@ -51,12 +52,25 @@ const QiitaItemPage = async ({ params }: Props) => {
           <button className="h-8 w-24 rounded-full bg-green-400">戻る</button>
         </Link>
       </div>
-      <h1 className='font-semibold text-2xl mb-6'>{qiitaItem.title}</h1>
+      <h1 className="font-semibold text-2xl">{qiitaItem.title}</h1>
+      <p className="text-sm text-gray-500">{formatDate(qiitaItem.created_at)}</p>
+      <ul className="flex flex-wrap gap-2 mt-2 mb-6">
+        {qiitaItem.tags.map((tag) => (
+          <li
+            key={tag.name}
+            className="text-xs bg-gray-400 rounded-full px-2 py-1"
+          >
+            {tag.name}
+          </li>
+        ))}
+      </ul>
       <div
-        className='break-all mb-6'
+        className="break-all mb-6"
         dangerouslySetInnerHTML={{ __html: qiitaItem.rendered_body }}
       />
-      <a href={qiitaItem.url} target="_blank" rel="noreferrer">元のQiitaページを見る</a>
+      <a href={qiitaItem.url} target="_blank" rel="noreferrer">
+        元のQiitaページを見る
+      </a>
     </div>
   );
 };
