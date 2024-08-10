@@ -17,10 +17,6 @@ export default function SearchInput({ setSearchText, setApiKey }: SearchInputPro
   };
 
   const handleSearch = () => {
-    if (!searchText) {
-      alert("検索テキストを入力してください");
-      return;
-    }
     setSearchText(searchText);
   };
 
