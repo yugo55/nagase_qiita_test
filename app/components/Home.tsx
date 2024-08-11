@@ -59,6 +59,12 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
           の検索結果
         </p>
       )}
+      {!searchText && searchDate && (
+        <p className="text-2xl my-5">
+          {searchDate.getFullYear()}/{searchDate.getMonth() + 1}/
+          {searchDate.getDate()}以降の記事の検索結果
+        </p>
+      )}
       <div>
         {items.map(({ id, title, tags, created_at }) => (
           <div key={id} className="bg-white rounded-2xl box-content mb-5">
