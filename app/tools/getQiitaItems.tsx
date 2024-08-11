@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ParsedQiitaItem } from "@/app/types";
 
-// dateはDateオブジェクトかnullであると仮定
 export const getQiitaItems = async (
   page: number,
   searchText: string = "",

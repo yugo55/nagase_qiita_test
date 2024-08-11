@@ -4,6 +4,9 @@ import { useState } from "react";
 import APIPopup from "@/app/components/APIPopup";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ja } from "date-fns/locale";
+
+registerLocale("ja", ja);
 
 type SearchInputProps = {
   setSearchText: (text: string) => void;
@@ -19,6 +22,7 @@ export default function SearchInput({
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [searchText, setInputSearchText] = useState("");
   const [searchDate, setInputSearchDate] = useState<Date | null>(null);
+  const maxDate = new Date();
 
   const togglePopup = () => {
     setPopupVisible(!isPopupVisible);
@@ -44,6 +48,9 @@ export default function SearchInput({
         onChange={(searchDate: Date | null) => setInputSearchDate(searchDate)}
         className="border-black border-b ml-2.5 w-28 h-8"
         placeholderText="日付を選択"
+        maxDate={maxDate}
+        locale="ja"
+        dateFormatCalendar="yyyy年 MM月"
       />
       <span>以降に作成された記事</span>
       <button
