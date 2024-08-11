@@ -19,33 +19,49 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [apiKey, setApiKey] = useState("");
+  const [searchDate, setSearchDate] = useState<Date | null>(null);
 
   useEffect(() => {
     const fetchQiitaItems = async () => {
       setLoading(true);
-      const newItems = await getQiitaItems(page, searchText);
+      const newItems = await getQiitaItems(
+        page,
+        searchText,
+        apiKey,
+        searchDate
+      );
       setItems(newItems);
       setLoading(false);
     };
     fetchQiitaItems();
-  }, [page, searchText]);
+  }, [page, searchText, searchDate]);
 
   const handleNextPage = () => setPage(page + 1);
   const handlePreviousPage = () => setPage(page > 1 ? page - 1 : 1);
 
   return (
     <div>
-      <SearchInput setSearchText={setSearchText} setApiKey={setApiKey} />
+      <SearchInput
+        setSearchText={setSearchText}
+        setApiKey={setApiKey}
+        setSearchDate={setSearchDate}
+      />
       <h1>更新日時: {generatedAt}</h1>
-      {searchText &&
-        <p className="text-2xl my-5">{searchText}の検索結果</p>
-      }
+      {searchText && (
+        <p className="text-2xl my-5">
+          {searchText}
+          {searchDate && (
+            <span>
+              ({searchDate.getFullYear()}/{searchDate.getMonth() + 1}/
+              {searchDate.getDate()}以降の記事)
+            </span>
+          )}
+          の検索結果
+        </p>
+      )}
       <div>
         {items.map(({ id, title, tags, created_at }) => (
-          <div
-            key={id}
-            className="bg-white rounded-2xl box-content mb-5"
-          >
+          <div key={id} className="bg-white rounded-2xl box-content mb-5">
             <Link
               href={`../${id}`}
               passHref

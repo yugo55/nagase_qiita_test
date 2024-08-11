@@ -2,21 +2,23 @@
 
 import { useState } from "react";
 import APIPopup from "@/app/components/APIPopup";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 type SearchInputProps = {
   setSearchText: (text: string) => void;
   setApiKey: (key: string) => void;
+  setSearchDate: (date: Date | null) => void;
 };
 
 export default function SearchInput({
   setSearchText,
   setApiKey,
+  setSearchDate,
 }: SearchInputProps) {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [searchText, setInputSearchText] = useState("");
-  const [date, setDate] = useState<Date | null>(null);
+  const [searchDate, setInputSearchDate] = useState<Date | null>(null);
 
   const togglePopup = () => {
     setPopupVisible(!isPopupVisible);
@@ -24,10 +26,7 @@ export default function SearchInput({
 
   const handleSearch = () => {
     setSearchText(searchText);
-  };
-
-  const handleDateChange = (selectedDate: Date | null) => {
-    setDate(selectedDate)
+    setSearchDate(searchDate);
   };
 
   return (
@@ -41,8 +40,8 @@ export default function SearchInput({
       />
       <DatePicker
         dateFormat="yyyy/MM/dd"
-        selected={date}
-        onChange={(date: Date | null) => handleDateChange(date)}
+        selected={searchDate}
+        onChange={(searchDate: Date | null) => setInputSearchDate(searchDate)}
         className="border-black border-b ml-2.5 w-28 h-8"
         placeholderText="日付を選択"
       />
