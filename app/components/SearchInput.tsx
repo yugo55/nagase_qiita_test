@@ -51,6 +51,7 @@ export default function SearchInput({
         maxDate={maxDate}
         locale="ja"
         dateFormatCalendar="yyyy年 MM月"
+        isClearable
       />
       <span>以降に作成された記事</span>
       <button
