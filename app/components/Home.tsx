@@ -34,7 +34,7 @@ const Home = ({ generatedAt, qiitaItems, initialPage }: HomeProps) => {
       setLoading(false);
     };
     fetchQiitaItems();
-  }, [page, searchText, searchDate]);
+  }, [page, searchText, apiKey, searchDate]);
 
   const handleNextPage = () => setPage(page + 1);
   const handlePreviousPage = () => setPage(page > 1 ? page - 1 : 1);
