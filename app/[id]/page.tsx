@@ -1,9 +1,6 @@
 import { notFound } from "next/navigation";
 import axios from "axios";
 import { ParsedQiitaItem, QiitaItemResponse } from "@/app/types";
-import hljs from "highlight.js";
-import { JSDOM } from "jsdom";
-import "highlight.js/styles/github.css";
 import Link from "next/link";
 import { formatDate } from "@/app/tools/formatDate";
 
@@ -18,18 +15,10 @@ const getQiitaItem = async (id: string): Promise<ParsedQiitaItem | null> => {
   try {
     const apiUrl = `https://qiita.com/api/v2/items/${id}`;
     const res = await axios.get<QiitaItemResponse>(apiUrl);
-
-    const jsdom = new JSDOM(res.data.rendered_body);
-    const { document } = jsdom.window;
-    const codeBlocks = document.querySelectorAll("pre code");
-
-    codeBlocks.forEach((block) => {
-      hljs.highlightBlock(block as HTMLElement);
-    });
-
+    
     return {
       ...res.data,
-      rendered_body: document.body.innerHTML,
+      rendered_body: res.data.rendered_body,
     };
   } catch (error) {
     console.error(error);
